@@ -1,0 +1,59 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.0
+    environment:
+      - DB_VENDOR=postgres
+      - DB_ADDR=keycloak-db
+      - DB_DATABASE=keycloak
+      - DB_USER=keycloak
+      - DB_PASSWORD=password
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - PROXY_ADDRESS_FORWARDING=true
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - JAVA_OPTS_APPEND=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    volumes:
+      - ./:/Projects/customstorage/target
+    entrypoint: ["/opt/keycloak/bin/kc.sh", "start-dev"]
+    depends_on:
+      - keycloak-db
+      - customer-db-service
+    networks:
+      - my-network
+
+  keycloak-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    volumes:
+      - keycloak_db_data:/var/lib/postgresql/data
+    networks:
+      - my-network
+
+  customer-db-service:
+    container_name: "customer-db-service"
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Password@123
+    ports:
+      - "5432:5432"
+    volumes:
+      - database_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  keycloak_db_data:
+  database_data:
+    driver: local
