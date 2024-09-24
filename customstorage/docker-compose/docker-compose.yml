@@ -51,9 +51,7 @@ services:
 
 networks:
   my-network:
-    driver: bridge
 
 volumes:
   keycloak_db_data:
   database_data:
-    driver: local

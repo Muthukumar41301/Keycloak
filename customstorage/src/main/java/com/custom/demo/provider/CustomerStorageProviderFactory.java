@@ -43,7 +43,7 @@ public class CustomerStorageProviderFactory implements UserStorageProviderFactor
 
     private Map<String, Object> getHibernateProperties() {
         Map<String, Object> props = new HashMap<>();
-        props.put("hibernate.connection.url","jdbc:postgresql://localhost:5432/keycloak");
+        props.put("hibernate.connection.url","jdbc:postgresql://localhost:5432/Keycloak");
         props.put("hibernate.connection.username","postgres");
         props.put("hibernate.connection.password","Password123");
         props.put("hibernate.dialect","org.hibernate.dialect.PostgreSQLDialect");

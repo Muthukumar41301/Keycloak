@@ -1,0 +1,15 @@
+server:
+  port: 8085
+  servlet:
+    context-path: /api
+keycloak:
+  client-id: auth-service-v1
+  client-secret: Yn9Oxl7wpTr2vC0Z9VFuCM2ipMuPc3hB
+  get-token-url: http://localhost:8080/realms/demo-realm/protocol/openid-connect/token
+  issuer-url: http://localhost:8080/realms/demo-realm
+redis:
+  config:
+    cache:
+      host: localhost
+      port: 6379
+      password: redis-password
