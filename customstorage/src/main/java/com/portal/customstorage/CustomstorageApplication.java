@@ -1,4 +1,4 @@
-package com.custom.demo;
+package com.portal.customstorage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

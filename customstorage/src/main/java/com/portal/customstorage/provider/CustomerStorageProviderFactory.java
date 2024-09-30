@@ -1,4 +1,4 @@
-package com.custom.demo.provider;
+package com.portal.customstorage.provider;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -36,17 +36,24 @@ public class CustomerStorageProviderFactory implements UserStorageProviderFactor
     }
 
     synchronized private void createEntityManagerFactory(){
-        HibernatePersistenceProvider hibernatePersistenceProvider = new HibernatePersistenceProvider();
-        final Map<String, Object> props = getHibernateProperties();
-        entityManagerFactory = hibernatePersistenceProvider.createEntityManagerFactory("user-store", props);
+        try {
+            HibernatePersistenceProvider hibernatePersistenceProvider = new HibernatePersistenceProvider();
+            final Map<String, Object> props = getHibernateProperties();
+            entityManagerFactory = hibernatePersistenceProvider.createEntityManagerFactory("user-store", props);
+        }catch (Exception e) {
+            e.printStackTrace(); // Log the exception
+            throw new RuntimeException("Error creating CustomerStorageProvider", e);
+        }
     }
 
     private Map<String, Object> getHibernateProperties() {
         Map<String, Object> props = new HashMap<>();
-        props.put("hibernate.connection.url","jdbc:postgresql://localhost:5432/Keycloak");
+        props.put("hibernate.connection.url", "jdbc:postgresql://customer-db-service:5432/Keycloak");
         props.put("hibernate.connection.username","postgres");
-        props.put("hibernate.connection.password","Password123");
+        props.put("hibernate.connection.password","Password@123");
         props.put("hibernate.dialect","org.hibernate.dialect.PostgreSQLDialect");
+        props.put("hibernate.hbm2ddl.auto", "update");
+        props.put("hibernate.show_sql", true);
         return props;
     }
 

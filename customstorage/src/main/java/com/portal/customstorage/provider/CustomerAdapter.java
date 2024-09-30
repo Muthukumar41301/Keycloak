@@ -1,6 +1,6 @@
-package com.custom.demo.provider;
+package com.portal.customstorage.provider;
 
-import com.custom.demo.entity.Customer;
+import com.portal.customstorage.model.Customer;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
@@ -9,21 +9,22 @@ import org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage;
 
 public class CustomerAdapter extends AbstractUserAdapterFederatedStorage {
 
-    private String id;
-    private Customer customer;
+    private final String id;
+    private final Customer customer;
     public CustomerAdapter(KeycloakSession session, RealmModel realm, ComponentModel storageProviderModel, Customer customer) {
         super(session, realm, storageProviderModel);
         this.customer = customer;
         this.id = StorageId.keycloakId(storageProviderModel, String.valueOf(customer.getId()));
     }
+
     @Override
     public String getUsername() {
-        return customer.getUserName();
+        return "";
     }
 
     @Override
     public void setUsername(String s) {
-        customer.setUserName(s);
+
     }
 
     @Override
