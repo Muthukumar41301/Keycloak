@@ -1,6 +1,7 @@
 package com.portal.customstorage.provider;
 
 import com.portal.customstorage.model.Customer;
+import lombok.Getter;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
@@ -10,6 +11,7 @@ import org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage;
 public class CustomerAdapter extends AbstractUserAdapterFederatedStorage {
 
     private final String id;
+    @Getter
     private final Customer customer;
     public CustomerAdapter(KeycloakSession session, RealmModel realm, ComponentModel storageProviderModel, Customer customer) {
         super(session, realm, storageProviderModel);

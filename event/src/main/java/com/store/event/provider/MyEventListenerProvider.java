@@ -24,7 +24,7 @@ public class MyEventListenerProvider implements EventListenerProvider {
 
     @Override
     public void onEvent(AdminEvent adminEvent, boolean b) {
-        if(adminEvent.getOperationType().name().equals("UPDATE")){
+        if(adminEvent.getOperationType().name().equals("UPDATE") || adminEvent.getOperationType().name().equals("CREATE")){
             logger.info(adminEvent.getRepresentation());
         }
     }

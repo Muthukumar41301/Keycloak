@@ -81,7 +81,6 @@ public class CustomerStorageProvider implements UserStorageProvider, UserRegistr
 
     @Override
     public UserModel addUser(RealmModel realmModel, String userName) {
-        System.out.println("userName******"+userName);
         if (userName == null || userName.isEmpty()) {
             throw new IllegalArgumentException("Username cannot be null or empty");
         }
